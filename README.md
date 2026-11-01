@@ -1,27 +1,40 @@
-# Endpointservice.Website
+# Endpoint Service Website
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.2.
+A one-page Angular site that documents the PHP API endpoints hosted at `es.tr3umphant-designs.com`. Those endpoints wrap the Stripe API and a mail script so Trey's apps from 2018 (such as the tr3Designs store) could call them over HTTP. The site itself only lists the endpoints and their parameters. The PHP code isn't in this repo.
 
-## Development server
+## What it documents
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+The home page (`src/app/views/home/home.component.html`) lists each endpoint under `http://es.tr3umphant-designs.com/assets/` with its POST parameters:
 
-## Code scaffolding
+| Group | Endpoints |
+| --- | --- |
+| Stripe tokens | create token |
+| Stripe cards | create, retrieve, update, list all, delete |
+| Stripe charges | create, capture, retrieve, update, list all |
+| Stripe customers | create, retrieve, update, delete, list all |
+| Stripe orders | create, pay, retrieve, list all |
+| Stripe payouts | create, cancel, retrieve, update, list all |
+| Stripe products and SKUs | list all products, retrieve product, retrieve SKU |
+| Stripe transfers | create transfer |
+| Email | send email (`to`, `from`, `subject`, `message`) |
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Every Stripe endpoint takes an `apiKey` parameter, meaning the caller sends the Stripe secret key with each request. The About page says the site exists only to keep track of these endpoints.
 
-## Build
+## Tech stack
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+- Angular 5 with the Angular CLI (`.angular-cli.json`)
+- Material Design for Bootstrap (`angular-bootstrap-md`)
 
-## Running unit tests
+## Getting started
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Requires a Node.js version that Angular CLI 1.x supports (Node 8 or 10).
 
-## Running end-to-end tests
+```sh
+npm install
+npm start          # ng serve on http://localhost:4200
+npm run build      # ng build --prod, output in dist/
+```
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## Note
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+Sending a Stripe secret key from client apps to these endpoints exposes it to anyone using the app. If the endpoints are still live, they should keep the key on the server instead.
